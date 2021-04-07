@@ -1,11 +1,15 @@
 {
   "name": "Backend",
   "version": "1.0.0",
-  "description": "Projeto 1° Bimestre",
+  "description": "Testre de projeto node",
   "main": "index.js",
-  "author": "Rafael Estevan Zubiolo Cavalaro",
+  "author": "Hericson Forti",
   "license": "MIT",
+  "scripts" : {
+    "dev" : "nodemon src/index.js"
+  },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
   }
 }
