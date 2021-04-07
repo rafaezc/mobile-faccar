@@ -1,0 +1,11 @@
+{
+  "name": "Backend",
+  "version": "1.0.0",
+  "description": "Projeto 1° Bimestre",
+  "main": "index.js",
+  "author": "Rafael Estevan Zubiolo Cavalaro",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
