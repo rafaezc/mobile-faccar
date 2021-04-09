@@ -25,7 +25,7 @@ module.exports = {
 
     var id = req.query.id;
     let medico = await Medico.findById(id);
-    medico = await Medico.deleteOne(medico);
+    medico = await Medico.deleteOne({'_id': req.query.id} , medico);
     return res.json(medico);
   }
 

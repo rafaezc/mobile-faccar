@@ -1,9 +1,10 @@
 const express = require('express');
 
-const UserController          = require('../controller/User');
-const ClinicaController       = require('../controller/Clinica');
+const UserController = require('../controller/User');
+const ClinicaController = require('../controller/Clinica');
 const EspecialidadeController = require('../controller/Especialidade');
-const MedicoController        = require('../controller/Medico');
+const MedicoController = require('../controller/Medico');
+const MedicoClinicaController = require('../controller/MedicoClinica');
 
 const routes = express.Router();
 
@@ -30,5 +31,10 @@ routes.get('/medico',MedicoController.index);
 routes.post('/medico',MedicoController.store);
 routes.put('/medico', MedicoController.update);
 routes.delete('/medico', MedicoController.delete);
+
+routes.get('/medico-clinica',MedicoClinicaController.index);
+routes.post('/medico-clinica',MedicoClinicaController.store);
+// routes.get('/medico-clinica',MedicoClinicaController.update);
+// routes.post('/medico-clinica',MedicoClinicaController.delete);
 
 module.exports = routes;
