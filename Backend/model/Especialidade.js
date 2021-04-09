@@ -5,7 +5,6 @@ const EspecialidadeSchema = new mongoose.Schema({
   subtitulo : String,
   text : String,
   imagem: String,
-  password : String,
   criado_em: Number,
   atualizado_em: Number,
   status : Boolean
