@@ -13,15 +13,22 @@ module.exports = {
     return res.json(user)
   },
 
-  update(req,res) {
+  async update(req,res) {
     var id = req.query.id;
-    var produto = req.body.produto;
-    return res.json({messagem : 'Atualizar o produt ' + id +' com os dados do post '+ produto.nome});
+    let user = await User.findById(id);
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.age = req.body.age;
+    user.password = req.body.password;
+    user = await User.update(user);
+    return res.json({messagem : 'Atualizar o user ' + id +' com os dados do post '+ user.name});
   },
 
-  delete(req,res) {
+  async delete(req,res) {
     var id = req.query.id;
-    return res.json({messagem : 'deleta o produto ' + id});
+    let user = await User.findById(id);
+    user = await User.deleteOne(user);
+    return res.json(user);
   }
 
 } 
