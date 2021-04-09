@@ -5,11 +5,12 @@
   "main": "index.js",
   "author": "Hericson Forti",
   "license": "MIT",
-  "scripts" : {
-    "dev" : "nodemon src/index.js"
+  "scripts": {
+    "dev": "nodemon src/index.js"
   },
   "dependencies": {
     "express": "^4.17.1",
+    "mongoose": "^5.12.3",
     "nodemon": "^2.0.7"
   }
 }
