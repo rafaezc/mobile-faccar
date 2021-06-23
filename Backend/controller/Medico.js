@@ -14,7 +14,6 @@ module.exports = {
   },
 
   async update(req,res) {
-
     let medico = req.body;
     medico.atualizado_em = Date.now();
     medico = await Medico.updateOne({'_id': req.query.id} , medico);
@@ -22,7 +21,6 @@ module.exports = {
   },
 
   async delete(req,res) {
-
     var id = req.query.id;
     let medico = await Medico.findById(id);
     medico = await Medico.deleteOne({'_id': req.query.id} , medico);

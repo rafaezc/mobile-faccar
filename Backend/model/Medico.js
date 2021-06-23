@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const MedicoSchema = new mongoose.Schema({
   name : String,
