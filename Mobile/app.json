@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Mobile",
-    "slug": "Mobile",
+    "name": "Cadê Meu Médico",
+    "slug": "cade-meu-medico",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
