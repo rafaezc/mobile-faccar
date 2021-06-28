@@ -17,15 +17,15 @@ export default function Login({navigation}) {
 
         console.log(response.data);
 
-        // if (response.status === 200) {
-        //     await AsyncStorage.setItem('@user', JSON.stringify(response.data));
-        //     const teste = AsyncStorage.getItem('@user');
-        //     navigation.navigate('Index');
-        //     console.log(JSON.parse(teste));
-        // } else {
-        //     let errorMessage = response.data; //--Voltar aqui mais tarde--//
-        //     console.log(errorMessage);
-        // }
+        if (response.status === 200) {
+            await AsyncStorage.setItem('@user', JSON.stringify(response.data));
+            const teste = AsyncStorage.getItem('@user');
+            navigation.navigate('Index');
+            console.log(JSON.parse(teste));
+        } else {
+            let errorMessage = response.data; //--Voltar aqui mais tarde--//
+            console.log(errorMessage);
+        }
         
     }
 
