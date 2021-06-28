@@ -16,6 +16,7 @@ routes.get('/user',UserController.index);
 routes.post('/user',UserController.store);
 routes.put('/user', UserController.update);
 routes.delete('/user', UserController.delete);
+routes.post('/user/validation', UserController.validation);
 
 routes.get('/clinica',ClinicaController.index);
 routes.post('/clinica',ClinicaController.store);

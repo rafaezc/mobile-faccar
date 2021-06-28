@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: "https://viacep.com.br/ws"
+    baseURL: "http://127.0.0.1:3000/" //--trocar para 127.0.0.1 melhorou o tempo de respota mas nao resolveu--//
 });
 
 export default api;
