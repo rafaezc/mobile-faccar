@@ -6,7 +6,7 @@ import Usuario from './pages/Usuario';
 import Clinicas from './pages/Clinicas';
 import Especialidades from './pages/Especialidades';
 
-export default Routes = createAppContainer(
+const Routes = createAppContainer(
     createSwitchNavigator({
         Index,
         Login,
@@ -16,3 +16,5 @@ export default Routes = createAppContainer(
         Especialidades
     })
 );
+
+export default Routes;

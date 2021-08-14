@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
-import { AsyncStorage } from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/api';
 import logoFaccar from '../../assets/logoFaccar.png';
 
@@ -10,23 +10,24 @@ export default function Login({navigation}) {
     const [pwd, setPwd] = useState('');
 
     async function formSubmit() {
-        const response = await api.post('/user/validation', {
+        await api.post('/user/validation', {
             ra,
             pwd
-        });
+        }).then(response => {
+            if (response.status === 200) {
+                AsyncStorage.setItem('@user', JSON.stringify(response.data));
+                // const teste = AsyncStorage.getItem('@user');
+                navigation.navigate('Index');
+                // console.log(JSON.parse(teste));
+            } 
+            // else {
+            //     let errorMessage = response.data; //--Voltar aqui mais tarde--//
+            //     console.log(errorMessage);
+            // }
+            
+        }).catch(error => console.log(error));
 
-        console.log(response.data);
-
-        if (response.status === 200) {
-            await AsyncStorage.setItem('@user', JSON.stringify(response.data));
-            const teste = AsyncStorage.getItem('@user');
-            navigation.navigate('Index');
-            console.log(JSON.parse(teste));
-        } else {
-            let errorMessage = response.data; //--Voltar aqui mais tarde--//
-            console.log(errorMessage);
-        }
-        
+        // console.log(response.data);
     }
 
     return (

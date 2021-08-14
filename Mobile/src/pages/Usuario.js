@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
-import { AsyncStorage } from '@react-native-async-storage/async-storage';
+import { View, Text, TextInput, Image, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import avatar from '../../assets/logoFaccar.png';
 
 export default function Usuario({navigation}) {
