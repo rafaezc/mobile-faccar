@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Icon } from 'react-native-elements';
 import avatar from '../../assets/logoFaccar.png';
+import api from '../services/api';
+import ListItem from '../components/ListItem';
 
 export default function Index({navigation}) {
   
   const [user, setUser] = useState('');
+  const [materias, setMaterias] = useState('');
 
   useEffect(() => {
     AsyncStorage.getItem('@user').then(user => {
@@ -15,8 +18,22 @@ export default function Index({navigation}) {
       } else {
         setUser(JSON.parse(user));
       }
+    if (!materias) {
+      getSubjects();
+    }
     });
   });
+
+  async function getSubjects() {
+    const materias = await api.get('/materia');
+    console.log(materias.data);
+    if (materias.status === 200) {
+      setMaterias(materias.data);
+    } else {
+      let errorMessage = response.data; //--Voltar aqui mais tarde--//
+      console.log(errorMessage);
+    }
+  }
 
   function logOff() {
     AsyncStorage.removeItem('@user');
@@ -44,16 +61,30 @@ export default function Index({navigation}) {
             {user.email}
           </Text>
         </View>
-        <View styles={styles.logoutArea}>
-          <Icon onPress={logOff} style={styles.logout} name="logout" />
-        </View>
-        <View styles={styles.configArea}>
-          <Icon onPress={editUser} style={styles.config} name="cog" type="font-awesome"/>
+          <View styles={styles.logoutArea}>
+            <Icon onPress={logOff} style={styles.logout} name="logout" />
+          </View>
+          <View styles={styles.configArea}>
+            <Icon onPress={editUser} style={styles.config} name="cog" type="font-awesome"/>
+          </View>
+        <View>
+          <FlatList 
+            data={materias}
+            keyExtractor={item => item._id} 
+            renderItem={({item}) => (
+              <ListItem
+                data={item}
+              />
+            )}
+            ItemSeparatorComponent={() => <Separator/>}
+          />
         </View>
       </View>
     </View>
   );
 }
+
+const Separator = () => <View style={{flex: 1, height: 2, backgroundColor:'#ddd', }}></View>
 
 const styles = StyleSheet.create({
   container: {

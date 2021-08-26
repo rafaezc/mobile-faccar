@@ -23,7 +23,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
-    "react-native-reanimated": "~2.1.0",
+    "react-native-reanimated": "^2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.0.0",
     "react-native-vector-icons": "^7.0.0",
@@ -32,12 +32,15 @@
     "xmldom": "^0.6.0"
   },
   "peerDependencies": {
-    "react-native-vector-icons": "^7.0.0",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-native-vector-icons": "^7.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
   },
-  "private": true
+  "private": true,
+  "name": "Mobile",
+  "version": "1.0.0",
+  "license": "MIT"
 }

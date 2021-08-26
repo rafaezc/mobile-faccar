@@ -19,11 +19,10 @@ export default function Login({navigation}) {
                 // const teste = AsyncStorage.getItem('@user');
                 navigation.navigate('Index');
                 // console.log(JSON.parse(teste));
-            } 
-            // else {
-            //     let errorMessage = response.data; //--Voltar aqui mais tarde--//
-            //     console.log(errorMessage);
-            // }
+            } else {
+                let errorMessage = response.data; //--Voltar aqui mais tarde--//
+                console.log(errorMessage);
+            }
             
         }).catch(error => console.log(error));
 
@@ -44,7 +43,7 @@ export default function Login({navigation}) {
                     maxLength={10} 
                     value={ra}
                     onChangeText={setRa} />
-           
+
                 <TextInput style={styles.input} 
                     placeholder="Informe sua Senha" 
                     placeholderTextColor="#888" 
@@ -52,6 +51,7 @@ export default function Login({navigation}) {
                     maxLength={14}
                     value={pwd} 
                     onChangeText={setPwd} />
+                    
                 <TouchableOpacity onPress={formSubmit} style={styles.button}>
                     <Text style={styles.textButton}>
                         Logar
