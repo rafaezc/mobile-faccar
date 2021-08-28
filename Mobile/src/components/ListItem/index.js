@@ -2,8 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 
-
-export default function ListItem({data}) {
+export default function ListItem({data, handlerRight, handlerLeft}) {
 
   function LeftAction() {
     return (
@@ -29,6 +28,8 @@ export default function ListItem({data}) {
     <Swipeable
       renderLeftActions={LeftAction}
       renderRightActions={RightAction}
+      onSwipeableLeftOpen={handlerLeft}
+      onSwipeableRightOpen={handlerRight}
     >
       <View style={styles.container}>
         <Text style={styles.text}>{data.name}</Text>
@@ -48,8 +49,7 @@ const styles = StyleSheet.create({
     color: '#222'
   }, 
   leftAction: {
-    backgroundColor: '#0as11e',
-    justifyContent: 'center',
+    backgroundColor: '#0ae11e',
     flex: 1
   },
   textLeftAction: {
@@ -59,9 +59,8 @@ const styles = StyleSheet.create({
   },
   rightAction: {
     backgroundColor: '#a80202',
-    justifyContent: 'center',
     flex: 1,
-    textAlign: 'right'
+    flexDirection: 'row-reverse'
   },
   textRightAction: {
     padding: 20,

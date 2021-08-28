@@ -18,7 +18,7 @@ export default function Usuario({navigation}) {
           } else {
             setUser(JSON.parse(user));
           }
-        });
+        }).catch(error => error);
     });
 
     function goBack() {

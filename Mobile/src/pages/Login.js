@@ -16,17 +16,14 @@ export default function Login({navigation}) {
         }).then(response => {
             if (response.status === 200) {
                 AsyncStorage.setItem('@user', JSON.stringify(response.data));
-                // const teste = AsyncStorage.getItem('@user');
                 navigation.navigate('Index');
-                // console.log(JSON.parse(teste));
             } else {
-                let errorMessage = response.data; //--Voltar aqui mais tarde--//
+                let errorMessage = response.data; 
                 console.log(errorMessage);
             }
             
         }).catch(error => console.log(error));
 
-        // console.log(response.data);
     }
 
     return (

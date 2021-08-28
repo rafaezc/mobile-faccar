@@ -32,10 +32,11 @@ module.exports = {
   },
 
   async validation(req, res) {
+    console.log('teste');
     const {ra, pwd} = req.body;
     let user = await User.findOne({ra: ra, pwd: pwd});
     if (user === null) {
-      return res.status(203).json({mensagem: 'RA ou senha inválidos!' }); //--403 Forbidden para senha ou RA errado?--//
+      return res.status(203).json({mensagem: 'RA ou senha inválidos!' }); 
     } else {
       return res.status(200).json(user);
     }

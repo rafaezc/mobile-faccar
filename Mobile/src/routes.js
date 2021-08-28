@@ -5,6 +5,8 @@ import Medicos from './pages/Medicos';
 import Usuario from './pages/Usuario';
 import Clinicas from './pages/Clinicas';
 import Especialidades from './pages/Especialidades';
+import Notas from './pages/Notas';
+import Faltas from './pages/Faltas';
 
 const Routes = createAppContainer(
     createSwitchNavigator({
@@ -13,7 +15,9 @@ const Routes = createAppContainer(
         Medicos,
         Usuario,
         Clinicas,
-        Especialidades
+        Especialidades,
+        Notas,
+        Faltas
     })
 );
 

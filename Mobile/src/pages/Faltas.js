@@ -6,34 +6,34 @@ import avatar from '../../assets/logoFaccar.png';
 import api from '../services/api';
 import ListItem from '../components/ListItem';
 
-export default function Index({navigation}) {
+export default function Faltas({navigation}) {
   
   const [user, setUser] = useState('');
   const [materias, setMaterias] = useState('');
 
-  useEffect(() => {
-    if (!materias) {
-      getSubjects();
-    }
-    AsyncStorage.getItem('@user').then(user => {
-      if (!user) {
-        navigation.navigate('Login');
-      } else {
-        setUser(JSON.parse(user));
-      }
-    });
-  });
+ // useEffect(() => {
+//    AsyncStorage.getItem('@user').then(user => {
+ //     if (!user) {
+  //      navigation.navigate('Login');
+   //   } else {
+   //     setUser(JSON.parse(user));
+  //    }
+ //   if (!materias) {
+ //     getSubjects();
+ //   }
+ //   });
+  //});
 
-  async function getSubjects() {
-    const materias = await api.get('/materia');
-    console.log(materias.data);
-    if (materias.status === 200) {
-      setMaterias(materias.data);
-    } else {
-      let errorMessage = response.data; //--Voltar aqui mais tarde--//
-      console.log(errorMessage);
-    }
-  }
+ // async function getSubjects() {
+  //  const materias = await api.get('/materia');
+  //  console.log(materias.data);
+ //   if (materias.status === 200) {
+ //     setMaterias(materias.data);
+ //   } else {
+   //   let errorMessage = response.data; //--Voltar aqui mais tarde--//
+ //     console.log(errorMessage);
+   // }
+  //}
 
   function logOff() {
     AsyncStorage.removeItem('@user');
@@ -54,18 +54,19 @@ export default function Index({navigation}) {
           <Text style={styles.name}>
             {user.name}
           </Text>
-          <Text style={styles.text}>
+          <Text>
             {user.ra}
           </Text>
-          <Text style={styles.text}>
+          <Text>
             {user.email}
           </Text>
         </View>
-          <View style={styles.logoutArea}>
-            <Icon onPress={logOff} iconStyle={styles.logout} name="logout" />
-            <Icon onPress={editUser} iconStyle={styles.config} name="cog" type="font-awesome" />
+          <View styles={styles.logoutArea}>
+            <Icon onPress={logOff} style={styles.logout} name="logout" />
           </View>
-      </View>
+          <View styles={styles.configArea}>
+            <Icon onPress={editUser} style={styles.config} name="cog" type="font-awesome"/>
+          </View>
         <View>
           <FlatList 
             data={materias}
@@ -80,6 +81,7 @@ export default function Index({navigation}) {
             ItemSeparatorComponent={() => <Separator/>}
           />
         </View>
+      </View>
     </View>
   );
 }
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 80,
     height: 80,
-    borderRadius: 40,
+    borderRadius: 75,
     marginHorizontal: 10
   },
   name: {
@@ -109,19 +111,22 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#000',
-    fontSize: 14
+    fontSize: 32
   },
   logoutArea: {
-    width: 100,
-    height: 60,
-    marginTop: 10
+    width: 80,
+    height: 80,
+    marginVertical: '5%'
   },
   logout: {
-    paddingBottom: 1,
-    fontSize: 37
+    marginVertical: 20,
+    textAlign: 'center'
+  },
+  configArea: {
+    height: 50,
+    paddingVertical: 10
   },
   config: {
-    paddingTop: 1,
-    fontSize: 37
+    marginVertical: 10
   }
 });
