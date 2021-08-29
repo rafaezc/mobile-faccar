@@ -32,12 +32,11 @@ export default function Faltas({navigation, route}) {
       user: user_id,
       subject: subject_id
     });
-    console.log(faltas.data);
     if (faltas.status === 200) {
       setFaltas(faltas.data);
     } else {
-      let errorMessage = response.data; 
-      console.log(errorMessage);
+      setFaltas(faltas.data);
+      alert(faltas.data.message); 
     }
 
   }

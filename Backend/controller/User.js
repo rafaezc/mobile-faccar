@@ -35,7 +35,7 @@ module.exports = {
     const {ra, pwd} = req.body;
     let user = await User.findOne({ra: ra, pwd: pwd});
     if (user === null) {
-      return res.status(203).json({mensagem: 'RA ou senha inválidos!' }); 
+      return res.status(203).json({message: 'RA ou senha inválidos!'}); 
     } else {
       return res.status(200).json(user);
     }

@@ -32,12 +32,11 @@ export default function Notas({navigation, route}) {
       user: user_id,
       subject: subject_id
     });
-    console.log(notas.data);
     if (notas.status === 200) {
       setNotas(notas.data);
     } else {
-      let errorMessage = response.data; 
-      console.log(errorMessage);
+      setNotas(notas.data);
+      alert(notas.data.message); 
     }
 
   }

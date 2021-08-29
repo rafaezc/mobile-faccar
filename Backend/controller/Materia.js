@@ -4,7 +4,11 @@ module.exports = {
 
   async index(req, res) {
     let materias = await Materia.find().sort({name: 1});
-    return res.json(materias);
+    if (materias === null) {
+      return res.status(203).json({message: 'Não foram encontradas matérias vinculadas ao RA logado'}); 
+    } else {
+      return res.status(200).json(materias);
+    }
   },
 
   async store(req, res) {

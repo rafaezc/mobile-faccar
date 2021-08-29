@@ -35,7 +35,11 @@ module.exports = {
     var subject = req.body.subject;
     var user = req.body.user;
     let falta = await Falta.find({user: user, subject: subject}); 
-    return res.json(falta);
+    if (falta.length === 0) {
+      return res.status(203).json({message: 'Não há faltas registradas nesta matéria'}); 
+    } else {
+      return res.status(200).json(falta);
+    }
   }
 
 } 

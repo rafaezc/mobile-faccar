@@ -6,8 +6,8 @@ import logoFaccar from '../../assets/logoFaccar.png';
 
 export default function Login({navigation}) { 
     
-    const [ra, setRa] = useState('2019073845');
-    const [pwd, setPwd] = useState('123456');
+    const [ra, setRa] = useState('');
+    const [pwd, setPwd] = useState('');
 
     async function formSubmit() {
         await api.post('/user/validation', {
@@ -18,8 +18,7 @@ export default function Login({navigation}) {
                 AsyncStorage.setItem('@user', JSON.stringify(response.data));
                 navigation.navigate('Index');
             } else {
-                let errorMessage = response.data; 
-                console.log(errorMessage);
+                alert(response.data.message); 
             }
             
         }).catch(error => console.log(error));

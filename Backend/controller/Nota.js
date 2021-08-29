@@ -35,7 +35,11 @@ module.exports = {
     var subject = req.body.subject;
     var user = req.body.user;
     let nota = await Nota.find({user: user, subject: subject}); 
-    return res.json(nota);
+    if (nota.length === 0) {
+      return res.status(203).json({message: 'Não há notas registradas nesta matéria'}); 
+    } else {
+      return res.status(200).json(nota);
+    }
   }
 
 }

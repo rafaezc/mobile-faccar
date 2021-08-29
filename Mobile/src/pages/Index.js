@@ -30,12 +30,11 @@ export default function Index({navigation}) {
 
   async function getSubjects() {
     const materias = await api.get('/materia');
-    console.log(materias.data);
     if (materias.status === 200) {
       setMaterias(materias.data);
     } else {
-      let errorMessage = response.data; 
-      console.log(errorMessage);
+      setMaterias(materias.data);
+      alert(materias.data.message); 
     }
   }
 
