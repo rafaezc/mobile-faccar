@@ -45,13 +45,13 @@ routes.get('/nota', NotaController.index);
 routes.post('/nota', NotaController.store);
 routes.put('/nota', NotaController.update);
 routes.delete('/nota', NotaController.delete);
-routes.post('/nota', NotaController.materiaHasNota);
+routes.post('/nota/aluno', NotaController.materiaHasNota);
 
 routes.get('/falta', FaltaController.index);
 routes.post('/falta', FaltaController.store);
 routes.put('/falta', FaltaController.update);
 routes.delete('/falta', FaltaController.delete);
-routes.post('/falta', FaltaController.materiaHasFalta);
+routes.post('/falta/aluno', FaltaController.materiaHasFalta);
 
 routes.get('/medico-clinica', MedicoClinicaController.index);
 routes.post('/medico-clinica', MedicoClinicaController.store);

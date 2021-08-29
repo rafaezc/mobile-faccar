@@ -32,7 +32,6 @@ module.exports = {
   },
 
   async validation(req, res) {
-    console.log('teste');
     const {ra, pwd} = req.body;
     let user = await User.findOne({ra: ra, pwd: pwd});
     if (user === null) {

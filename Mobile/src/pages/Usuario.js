@@ -13,13 +13,21 @@ export default function Usuario({navigation}) {
 
     useEffect(() => {
         AsyncStorage.getItem('@user').then(user => {
+          let mounted = true;
           if (!user) {
             navigation.navigate('Login');
           } else {
             setUser(JSON.parse(user));
           }
-        }).catch(error => error);
-    });
+          return function cleanup() {
+            mounted = false;
+          }
+        });
+      });
+
+    function editInfo() {
+        alert('Ainda não implementado');
+    }  
 
     function goBack() {
         navigation.navigate('Index');
@@ -61,17 +69,19 @@ export default function Usuario({navigation}) {
                     maxLength={14}
                     value={pwd} 
                     onChangeText={setPwd} />
-                <TouchableOpacity style={styles.button}> {/*onPress={editInfo}*/}
+                <TouchableOpacity onPress={editInfo} style={styles.button}> 
                     <Text style={styles.textButton}>
                         Enviar
                     </Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={goBack}style={styles.text}>
-                <Text>
-                    Voltar
-                </Text>
-            </TouchableOpacity>
+            <View style={styles.form}>
+                <TouchableOpacity onPress={goBack} style={styles.backButton}>
+                    <Text style={styles.textBackButton}>
+                        Voltar
+                    </Text>
+                </TouchableOpacity>
+            </View>
         </SafeAreaView>
     );
 }
@@ -105,13 +115,30 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: '#05509b',
         borderRadius: 10,
+        borderWidth: 3,
+        borderColor: '#05509b',
         paddingHorizontal: 10,
         paddingVertical: 10,
+        marginTop: 5,
         marginBottom: 15
     },
     textButton: {
         color: '#fff',
         fontSize: 20,
         textAlign: 'center'
+    }, 
+    backButton: {
+        backgroundColor: 'transparent',
+        borderRadius: 10,
+        borderWidth: 3,
+        borderColor: '#05509b',
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        marginBottom: 15
+    },
+     textBackButton: {
+        fontSize: 20,
+        textAlign: 'center',
+        color: '#05509b'
     }
 });

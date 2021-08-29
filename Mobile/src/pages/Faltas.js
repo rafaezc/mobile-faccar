@@ -1,132 +1,120 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Icon } from 'react-native-elements';
-import avatar from '../../assets/logoFaccar.png';
 import api from '../services/api';
-import ListItem from '../components/ListItem';
 
-export default function Faltas({navigation}) {
+export default function Faltas({navigation, route}) {
   
+  const {user_id, subject_id} = route.params;
   const [user, setUser] = useState('');
-  const [materias, setMaterias] = useState('');
+  const [faltas, setFaltas] = useState('');
+  var array_faltas = [];
 
- // useEffect(() => {
-//    AsyncStorage.getItem('@user').then(user => {
- //     if (!user) {
-  //      navigation.navigate('Login');
-   //   } else {
-   //     setUser(JSON.parse(user));
-  //    }
- //   if (!materias) {
- //     getSubjects();
- //   }
- //   });
-  //});
+  useEffect(() => {
+    AsyncStorage.getItem('@user').then(user => {
+      let mounted = true;
+      if (!user) {
+        navigation.navigate('Login');
+        return function cleanup() {
+          mounted = false;
+        }
+      } else {
+        setUser(JSON.parse(user));
+      }
+    });
+    if (!faltas) {
+      getMisses();
+    }
+  });
 
- // async function getSubjects() {
-  //  const materias = await api.get('/materia');
-  //  console.log(materias.data);
- //   if (materias.status === 200) {
- //     setMaterias(materias.data);
- //   } else {
-   //   let errorMessage = response.data; //--Voltar aqui mais tarde--//
- //     console.log(errorMessage);
-   // }
-  //}
+  async function getMisses() {
+    const faltas = await api.post('/falta/aluno', {
+      user: user_id,
+      subject: subject_id
+    });
+    console.log(faltas.data);
+    if (faltas.status === 200) {
+      setFaltas(faltas.data);
+    } else {
+      let errorMessage = response.data; 
+      console.log(errorMessage);
+    }
 
-  function logOff() {
-    AsyncStorage.removeItem('@user');
-    navigation.navigate('Login');
   }
 
-  function editUser() {
-    navigation.navigate('Usuario');
+  dataFormat();
+
+  function dataFormat() {
+    for (let i = 0; i< faltas.length; i++) {
+      let x;
+      if (faltas[i].quantity < 10) {
+        x = 0;
+      } else {
+        x = '';
+      }
+      array_faltas.push(faltas[i].period + ': ' + x + faltas[i].quantity + ' \n');
+    }
+  }
+
+  function goBack() {
+    navigation.navigate('Index');
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View>
-          <Image style={styles.avatar} source={avatar}></Image>
-        </View>
-        <View>
-          <Text style={styles.name}>
-            {user.name}
-          </Text>
-          <Text>
-            {user.ra}
-          </Text>
-          <Text>
-            {user.email}
-          </Text>
-        </View>
-          <View styles={styles.logoutArea}>
-            <Icon onPress={logOff} style={styles.logout} name="logout" />
-          </View>
-          <View styles={styles.configArea}>
-            <Icon onPress={editUser} style={styles.config} name="cog" type="font-awesome"/>
-          </View>
-        <View>
-          <FlatList 
-            data={materias}
-            keyExtractor={item => item._id} 
-            renderItem={({item}) => (
-              <ListItem
-                data={item}
-                handlerLeft={() => {navigation.navigate('Notas')}}
-                handlerRight={() => {navigation.navigate('Faltas')}}
-              />
-            )}
-            ItemSeparatorComponent={() => <Separator/>}
-          />
-        </View>
+    <SafeAreaView style={styles.container}>
+      <View>
+        <Text style={styles.title}>
+          Faltas
+        </Text>
       </View>
-    </View>
+      <View>
+        <Text style={styles.grades}> 
+          {array_faltas}
+        </Text>
+      </View>
+      <View style={styles.form}>
+        <TouchableOpacity onPress={goBack} style={styles.backButton}>
+          <Text style={styles.textBackButton}>
+              Voltar
+          </Text>
+        </TouchableOpacity>
+      </View>  
+    </SafeAreaView>  
   );
 }
-
-const Separator = () => <View style={{flex: 1, height: 2, backgroundColor:'#ddd', }}></View>
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center'
   },
-  header: {
-    width: '100%',
-    marginTop: 30,
-    paddingVertical: 10,
-    flexDirection: 'row'
-  },
-  avatar: {
-    width: 80,
-    height: 80,
-    borderRadius: 75,
-    marginHorizontal: 10
-  },
-  name: {
+  title: {
+    marginTop: 60,
+    marginBottom: 10,
     fontSize: 30,
     flexDirection: 'row' 
+  }, 
+  grades: {
+    fontSize: 20,
+    color: '#000'
   },
-  text: {
-    color: '#000',
-    fontSize: 32
+  form: {
+    alignSelf: 'stretch',
+    paddingHorizontal: 20,
+    marginTop: 0
   },
-  logoutArea: {
-    width: 80,
-    height: 80,
-    marginVertical: '5%'
+  backButton: {
+    backgroundColor: 'transparent',
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: '#05509b',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginBottom: 15
   },
-  logout: {
-    marginVertical: 20,
-    textAlign: 'center'
-  },
-  configArea: {
-    height: 50,
-    paddingVertical: 10
-  },
-  config: {
-    marginVertical: 10
+  textBackButton: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#05509b'
   }
 });

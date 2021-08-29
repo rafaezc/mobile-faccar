@@ -32,9 +32,9 @@ module.exports = {
   },
 
   async materiaHasNota(req, res) {
-    var subject = req.query.subject;
-    var user = req.query.user;
-    let nota = await Nota.find({user: {$eq: user}, subject: {$eq: subject} }); //-- tentar trocar essa função de busca antes de entregar --//
+    var subject = req.body.subject;
+    var user = req.body.user;
+    let nota = await Nota.find({user: user, subject: subject}); 
     return res.json(nota);
   }
 

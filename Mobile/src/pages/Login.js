@@ -6,8 +6,8 @@ import logoFaccar from '../../assets/logoFaccar.png';
 
 export default function Login({navigation}) { 
     
-    const [ra, setRa] = useState('');
-    const [pwd, setPwd] = useState('');
+    const [ra, setRa] = useState('2019073845');
+    const [pwd, setPwd] = useState('123456');
 
     async function formSubmit() {
         await api.post('/user/validation', {

@@ -12,16 +12,20 @@ export default function Index({navigation}) {
   const [materias, setMaterias] = useState('');
 
   useEffect(() => {
-    if (!materias) {
-      getSubjects();
-    }
     AsyncStorage.getItem('@user').then(user => {
+      let mounted = true;
       if (!user) {
         navigation.navigate('Login');
+        return function cleanup() {
+          mounted = false;
+        }
       } else {
         setUser(JSON.parse(user));
       }
     });
+    if (!materias) {
+      getSubjects();
+    }
   });
 
   async function getSubjects() {
@@ -30,7 +34,7 @@ export default function Index({navigation}) {
     if (materias.status === 200) {
       setMaterias(materias.data);
     } else {
-      let errorMessage = response.data; //--Voltar aqui mais tarde--//
+      let errorMessage = response.data; 
       console.log(errorMessage);
     }
   }
@@ -73,8 +77,8 @@ export default function Index({navigation}) {
             renderItem={({item}) => (
               <ListItem
                 data={item}
-                handlerLeft={() => {navigation.navigate('Notas')}}
-                handlerRight={() => {navigation.navigate('Faltas')}}
+                handlerLeft={() => {navigation.navigate('Notas', { user_id: user._id, subject_id: item._id })}}
+                handlerRight={() => {navigation.navigate('Faltas', { user_id: user._id, subject_id: item._id })}}
               />
             )}
             ItemSeparatorComponent={() => <Separator/>}
@@ -93,7 +97,8 @@ const styles = StyleSheet.create({
   },
   header: {
     width: '100%',
-    marginTop: 30,
+    marginTop: 40,
+    marginBottom: 10,
     paddingVertical: 10,
     flexDirection: 'row'
   },
@@ -104,24 +109,25 @@ const styles = StyleSheet.create({
     marginHorizontal: 10
   },
   name: {
+    width: 250,
     fontSize: 30,
-    flexDirection: 'row' 
   },
   text: {
+    width: 250,
     color: '#000',
     fontSize: 14
   },
   logoutArea: {
-    width: 100,
+    width: 80,
     height: 60,
-    marginTop: 10
   },
   logout: {
+    marginTop: 10,
     paddingBottom: 1,
-    fontSize: 37
+    fontSize: 37,
   },
   config: {
     paddingTop: 1,
-    fontSize: 37
+    fontSize: 37,
   }
 });

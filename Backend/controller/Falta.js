@@ -1,5 +1,4 @@
 const Falta = require('../model/Falta');
-// const Materias = require('../model/Materias');
 
 module.exports = {
 
@@ -33,9 +32,9 @@ module.exports = {
   },
 
   async materiaHasFalta(req, res) {
-    var subject = req.query.subject;
-    var user = req.query.user;
-    let falta = await Nota.find({user: {$eq: user}, subject: {$eq: subject} }); //-- tentar trocar essa função de busca antes de entregar --//
+    var subject = req.body.subject;
+    var user = req.body.user;
+    let falta = await Falta.find({user: user, subject: subject}); 
     return res.json(falta);
   }
 
