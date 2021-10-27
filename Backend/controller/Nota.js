@@ -21,7 +21,7 @@ module.exports = {
     nota.subject = req.body.subject;
     nota.user = req.body.user;
     nota = await Nota.updateOne({'_id': req.query.id} , nota)
-    return res.json({message : 'Atualizar a nota ' + id +' com os dados do post '+ nota.result});
+    return res.json({message : 'Nota ' + id +' atualizada com os dados do post '+ nota.result});
   },
 
   async delete(req, res) {

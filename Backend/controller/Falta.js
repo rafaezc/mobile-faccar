@@ -21,7 +21,7 @@ module.exports = {
     falta.subject = req.body.subject;
     falta.user = req.body.subject;
     falta = await Falta.updateOne({'_id': req.query.id} , falta)
-    return res.json({message : 'Atualizar as faltas ' + id +' com os dados do post '+ falta.quantity});
+    return res.json({message : 'Faltas ' + id +' atualizadas com os dados do post '+ falta.quantity});
   },
 
   async delete(req, res) {

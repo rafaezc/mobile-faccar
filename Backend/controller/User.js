@@ -21,7 +21,7 @@ module.exports = {
     user.ra = req.body.ra;
     user.pwd = req.body.pwd;
     user = await User.updateOne({'_id': req.query.id} , user)
-    return res.json({message : 'Atualizar o user ' + id +' com os dados do post '+ user.name});
+    return res.json({message : 'Usuário ' + id +' atualizado com os dados do post '+ user.name});
   },
 
   async delete(req, res) {

@@ -6,6 +6,7 @@ import Index from './src/pages/Index';
 import Usuario from './src/pages/Usuario';
 import Notas from './src/pages/Notas';
 import Faltas from './src/pages/Faltas';
+import Protocolos from './src/pages/Protocolos';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ export default function App() {
         <Stack.Screen name="Usuario" component={Usuario} />
         <Stack.Screen name="Notas" component={Notas} />
         <Stack.Screen name="Faltas" component={Faltas} />
+        <Stack.Screen name="Protocolos" component={Protocolos} />
       </Stack.Navigator>
     </NavigationContainer>
   ); 

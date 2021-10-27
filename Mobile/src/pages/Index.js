@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Icon } from 'react-native-elements';
 import avatar from '../../assets/logoFaccar.png';
@@ -47,6 +47,10 @@ export default function Index({navigation}) {
     navigation.navigate('Usuario');
   }
 
+  function watchProtocol() {
+    navigation.navigate('Protocolos', { user_id: user._id });
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -69,20 +73,27 @@ export default function Index({navigation}) {
             <Icon onPress={editUser} iconStyle={styles.config} name="cog" type="font-awesome" />
           </View>
       </View>
-        <View>
-          <FlatList 
-            data={materias}
-            keyExtractor={item => item._id} 
-            renderItem={({item}) => (
-              <ListItem
-                data={item}
-                handlerLeft={() => {navigation.navigate('Notas', { user_id: user._id, subject_id: item._id })}}
-                handlerRight={() => {navigation.navigate('Faltas', { user_id: user._id, subject_id: item._id })}}
-              />
-            )}
-            ItemSeparatorComponent={() => <Separator/>}
-          />
-        </View>
+      <View style={styles.form}>
+        <TouchableOpacity onPress={watchProtocol} style={styles.protocolButton}>
+          <Text style={styles.protocolTextButton}>
+              Protocolos
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View>
+        <FlatList 
+          data={materias}
+          keyExtractor={item => item._id} 
+          renderItem={({item}) => (
+            <ListItem
+              data={item}
+              handlerLeft={() => {navigation.navigate('Notas', { user_id: user._id, subject_id: item._id })}}
+              handlerRight={() => {navigation.navigate('Faltas', { user_id: user._id, subject_id: item._id })}}
+            />
+          )}
+          ItemSeparatorComponent={() => <Separator/>}
+        />
+      </View>
     </View>
   );
 }
@@ -109,7 +120,7 @@ const styles = StyleSheet.create({
   },
   name: {
     width: 250,
-    fontSize: 30,
+    fontSize: 30
   },
   text: {
     width: 250,
@@ -118,15 +129,32 @@ const styles = StyleSheet.create({
   },
   logoutArea: {
     width: 80,
-    height: 60,
+    height: 60
   },
   logout: {
     marginTop: 10,
     paddingBottom: 1,
-    fontSize: 37,
+    fontSize: 37
   },
   config: {
     paddingTop: 1,
-    fontSize: 37,
+    fontSize: 37
+  }, form: {
+    alignSelf: 'stretch',
+    paddingHorizontal: 20,
+    marginTop: 0
+  }, protocolButton: {
+    backgroundColor: '#05509b',
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: '#05509b',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginTop: 20,
+    marginBottom: 40
+  }, protocolTextButton: {
+    color: '#fff',
+    fontSize: 20,
+    textAlign: 'center'
   }
 });

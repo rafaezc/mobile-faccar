@@ -22,7 +22,7 @@ module.exports = {
     let materia = await Materia.findById(id);
     materia.name = req.body.name;
     materia = await Materia.updateOne({'_id': req.query.id} , materia)
-    return res.json({message : 'Atualizar a matéria ' + id +' com os dados do post '+ materia.name});
+    return res.json({message : 'Matéria ' + id +' atualizada com os dados do post '+ materia.name});
   },
 
   async delete(req, res) {
